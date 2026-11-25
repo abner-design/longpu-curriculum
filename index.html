@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>龍埔國小課程計畫工作站｜115 學年度下學期</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="assets/喜閱龍第二代-研究ing(手繪風).png" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       龍埔國小課程計畫工作站 — Design System v2.0 (Editorial Calm & Craft)
+       ========================================================================== */
+    :root {
+      /* 1. Color System */
+      --color-primary:        #1B364D;
+      --color-primary-hover:  #122638;
+      --color-primary-subtle: #EDF2F6;
+
+      --color-accent:         #B86B14;
+      --color-accent-border:  #E2C69E;
+      --bg-pending:           #FDF8EE;   /* 待填寫／待處理區塊專用色塊 */
+      --bg-interactive:       #F2F5F8;   /* 待選擇／篩選條件區專用色塊 */
+
+      --bg-canvas:            #FAF9F6;   /* 微暖紙白全站背景 */
+      --bg-subtle:            #F3F1EC;   /* 亞麻暖灰導覽與表頭 */
+      --bg-surface:           #FFFFFF;   /* 內容工作面板白底 */
+
+      --border-subtle:        #ECE9E2;
+      --border-default:       #DFDBD2;
+      --border-strong:        #C5BFB3;
+
+      --text-primary:         #18222C;
+      --text-secondary:       #4A5562;
+      --text-muted:           #78828E;
+
+      --status-ok:            #236647;
+      --status-ok-bg:         #EFF7F3;
+      --status-ok-border:     #BFE0CF;
+
+      --status-warn:          #9A5408;
+      --status-warn-bg:       #FDF6EC;
+      --status-warn-border:   #E9CCA4;
+
+      --status-danger:        #B42318;
+      --status-danger-bg:     #FDF3F2;
+      --status-danger-border: #F2C6C2;
+
+      /* 2. Typography */
+      --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei UI", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+      --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+      --text-xl:   22px;
+      --text-lg:   16px;
+      --text-base: 14.5px;
+      --text-sm:   13.5px;
+      --text-xs:   12px;
+
+      /* 3. Spacing (8pt Grid) */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 24px;
+      --sp-6: 32px;
+      --sp-7: 48px;
+
+      /* 4. Radius & Elevation (Restrained) */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 10px;
+      --sidebar-w: 240px;
+      --shadow-portal: 0 12px 36px rgba(24, 34, 44, 0.07);
+      --shadow-toast:  0 8px 24px rgba(24, 34, 44, 0.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+      overflow-x: hidden;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    a { color: var(--color-primary); text-decoration: none; }
+
+    code {
+      font-family: var(--font-mono);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+    }
+
+    /* Monoline 1.65px SVG Icons */
+    .ico {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      stroke-width: 1.65;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
+    .ico-sm { width: 14px; height: 14px; }
+    .ico-lg { width: 22px; height: 22px; }
+
+    /* ==========================================================================
+       1. Buttons, Tags & Form Controls
+       ========================================================================== */
+    .btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 38px;
+      padding: 0 15px;
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+    .btn-lg { height: 44px; padding: 0 22px; font-size: var(--text-base); }
+    .btn-sm { height: 32px; padding: 0 11px; font-size: var(--text-xs); }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--color-primary-hover);
+      color: #FFFFFF;
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--bg-subtle);
+      border-color: var(--color-primary);
+      color: var(--text-primary);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-danger-outline {
+      background: var(--bg-surface);
+      border-color: var(--status-danger-border);
+      color: var(--status-danger);
+    }
+    .btn-danger-outline:hover:not(:disabled) {
+      background: var(--status-danger-bg);
+      border-color: var(--status-danger);
+    }
+
+    /* Low-saturation Status Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .tag-neutral { background: var(--bg-subtle); color: var(--text-secondary); border-color: var(--border-default); }
+    .tag-primary { background: var(--color-primary-subtle); color: var(--color-primary); border-color: #CBD8E4; }
+    .tag-ok      { background: var(--status-ok-bg); color: var(--status-ok); border-color: var(--status-ok-border); }
+    .tag-warn    { background: var(--status-warn-bg); color: var(--status-warn); border-color: var(--status-warn-border); }
+    .tag-danger  { background: var(--status-danger-bg); color: var(--status-danger); border-color: var(--status-danger-border); }
+
+    /* Form Controls */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: var(--sp-3);
+    }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .input-ctrl, .select-ctrl, .field input[type="text"], .field input[type="number"], .field select, .field textarea {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+    }
+    .field textarea {
+      height: auto;
+      min-height: 72px;
+      padding: 8px 12px;
+      resize: vertical;
+    }
+    .input-ctrl:focus, .select-ctrl:focus,
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(27, 54, 77, 0.1);
+      background: var(--bg-surface);
+    }
+    .input-ctrl.is-empty-warn, .field input.is-empty-warn {
+      background: var(--bg-pending);
+      border-color: var(--color-accent);
+    }
+    .input-ctrl.is-filled-ok, .field input.is-filled-ok {
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
+    }
+
+    /* Attention Zones: 待填寫 (Pending) vs 待選擇 (Interactive) vs 已填妥 (Resolved) */
+    .zone-pending {
+      background: var(--bg-pending);
+      border: 1px solid var(--color-accent-border);
+      border-left: 3px solid var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+      transition: all 0.16s ease;
+    }
+    .zone-pending.is-resolved {
+      background: var(--bg-surface);
+      border-color: var(--border-default);
+      border-left: 3px solid var(--status-ok);
+    }
+    .zone-select {
+      background: var(--bg-interactive);
+      border: 1px solid #D7E0E8;
+      border-radius: var(--radius-md);
+      padding: var(--sp-4);
+    }
+    .zone-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: var(--sp-2);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--color-accent);
+    }
+    .zone-pending.is-resolved .zone-header { color: var(--status-ok); }
+    .zone-select .zone-header { color: var(--color-primary); }
+
+    /* Segmented Controls & Filter Chips */
+    .seg-group-scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .seg-group {
+      display: inline-flex;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      padding: 3px;
+      border-radius: var(--radius-md);
+      gap: 2px;
+      flex-wrap: nowrap;
+    }
+    .seg-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      padding: 6px 13px;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.14s ease;
+    }
+    .seg-btn:hover { color: var(--text-primary); }
+    .seg-btn.active {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      box-shadow: 0 1px 2px rgba(24, 34, 44, 0.14);
+    }
+    .seg-btn.active-ok {
+      background: var(--status-ok);
+      color: #FFFFFF;
+    }
+    .seg-btn.active-danger {
+      background: var(--status-danger);
+      color: #FFFFFF;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip-select {
+      appearance: none;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.14s ease;
+    }
+    .chip-select:hover {
+      border-color: var(--color-primary);
+      color: var(--text-primary);
+    }
+    .chip-select.active {
+      background: var(--color-primary-subtle);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      box-shadow: inset 0 0 0 1px var(--color-primary);
+    }
+    .chip-select.is-attention {
+      background: var(--bg-pending);
+      border-color: var(--color-accent-border);
+      color: var(--status-warn);
+    }
+    .chip-select.is-attention.active {
+      border-color: var(--color-accent);
+      box-shadow: inset 0 0 0 1px var(--color-accent);
+    }
+
+    /* ==========================================================================
+       2. 首頁・單一靜謐主入口（5:7 雙欄構圖，明確單一視覺焦點）
+       ========================================================================== */
+    body:not(.is-entered) .app-shell,
+    body:not(.is-entered) .mobile-role-strip,
+    body:not(.is-entered) .mobile-bottom-nav { display: none !important; }
+    body.is-entered .entry-portal { display: none !important; }
+
+    .entry-portal {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-6) var(--sp-4);
+      background: var(--bg-canvas);
+    }
+    .entry-frame {
+      width: 100%;
+      max-width: 920px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-portal);
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      overflow: hidden;
+    }
+    .entry-brand-col {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--sp-5);
+    }
+    .entry-kicker {
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 600;
+    }
+    .entry-brand-title {
+      margin: 8px 0 0;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    .entry-mascot-wrap {
+      margin: var(--sp-2) 0;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+    }
+    .entry-mascot-box {
+      width: 88px;
+      height: 88px;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .entry-mascot-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .entry-scope-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      padding-top: var(--sp-4);
+      font-size: var(--text-xs);
+      color: rgba(255, 255, 255, 0.82);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .entry-form-col {
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+    .role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .role-option {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .role-option:hover {
+      border-color: var(--color-primary);
+    }
+    .role-option.selected {
+      background: var(--color-primary-subtle);
+      border-color: var(--color-primary);
+      box-shadow: inset 3px 0 0 var(--color-primary);
+    }
+    .role-option-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .role-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .role-option.selected .role-radio { border-color: var(--color-primary); }
+    .role-option.selected .role-radio::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+    .role-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+    .role-scope-hint { font-size: var(--text-xs); color: var(--text-muted); }
+
+    /* ==========================================================================
+       3. 內頁工作區骨架（亞麻暖灰常駐側欄 ＋ 留白秩序主內容區）
+       ========================================================================== */
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    .sidebar {
+      background: var(--bg-subtle);
+      border-right: 1px solid var(--border-default);
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 40;
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: var(--sp-4);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .brand-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      border: 1px solid var(--border-default);
+      padding: 3px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+    }
+    .brand-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .brand-text strong {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .brand-text span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .identity-card {
+      margin-top: var(--sp-4);
+      padding: var(--sp-3);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .identity-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .identity-input {
+      width: 100%;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-accent);
+      background: var(--bg-pending);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      transition: all 0.14s ease;
+    }
+    .identity-input.has-value {
+      background: var(--bg-surface);
+      border-color: var(--border-default);
+    }
+    .identity-input:focus {
+      border-color: var(--color-primary);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 2px rgba(27, 54, 77, 0.1);
+    }
+    .identity-role-static {
+      width: 100%;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-default);
+      background: var(--bg-subtle);
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    .sidebar-nav {
+      margin-top: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      padding: 6px 10px 4px;
+    }
+    .nav-btn {
+      width: 100%;
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: 9px 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      transition: all 0.14s ease;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(27, 54, 77, 0.05);
+      color: var(--text-primary);
+    }
+    .nav-btn.active {
+      background: var(--bg-surface);
+      color: var(--color-primary);
+      font-weight: 700;
+      border-color: var(--border-default);
+      box-shadow: 0 1px 2px rgba(24, 34, 44, 0.05);
+    }
+    .nav-btn.is-locked {
+      opacity: 0.52;
+      cursor: not-allowed;
+      font-size: 12.5px;
+    }
+
+    .sidebar-foot {
+      border-top: 1px solid var(--border-default);
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    /* Main Workspace Area */
+    .main-area {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .topbar {
+      min-height: 60px;
+      padding: 10px var(--sp-6);
+      border-bottom: 1px solid var(--border-default);
+      background: var(--bg-canvas);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .topbar-left h1 {
+      margin: 0;
+      font-size: var(--text-xl);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .workspace-content {
+      padding: var(--sp-6);
+      max-width: 1280px;
+      width: 100%;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ==========================================================================
+       4. Panels, Layouts, Tables & Editorial Components
+       ========================================================================== */
+    .panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-5);
+    }
+    .panel + .panel { margin-top: var(--sp-5); }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      padding-bottom: var(--sp-4);
+      margin-bottom: var(--sp-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .panel-title {
+      margin: 0;
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); }
+    .nm-grid { display: grid; grid-template-columns: 1fr 128px 1.35fr; gap: var(--sp-4); }
+    .admin-course-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+    .grid-2 > .panel + .panel,
+    .grid-3 > .panel + .panel { margin-top: 0; }
+
+    .split-5-7 {
+      display: grid;
+      grid-template-columns: minmax(330px, 5fr) minmax(0, 7fr);
+      gap: var(--sp-5);
+      align-items: start;
+    }
+    .split-5-7 > .panel + .panel { margin-top: 0; }
+
+    /* Editorial Link Card (replaces chunky neon portal-tile) */
+    .link-card {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3);
+      padding: 14px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: border-color 0.14s ease, background-color 0.14s ease;
+    }
+    .link-card:hover {
+      border-color: var(--color-primary);
+      background: var(--bg-subtle);
+    }
+    .link-card.is-featured {
+      border-left: 3px solid var(--color-primary);
+    }
+    .link-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .link-card-ico {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      color: var(--color-primary);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .link-card-title {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .link-card-sub {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .locked-panel {
+      background: var(--bg-subtle);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-size: var(--text-sm);
+      border: 1px solid var(--border-default);
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+    .callout-ok {
+      background: var(--status-ok-bg);
+      border-color: var(--status-ok-border);
+      color: var(--status-ok);
+    }
+    .callout-warn {
+      background: var(--status-warn-bg);
+      border-color: var(--status-warn-border);
+      color: var(--status-warn);
+    }
+    .callout-err {
+      background: var(--status-danger-bg);
+      border-color: var(--status-danger-border);
+      color: var(--status-danger);
+    }
+
+    /* Clean Editorial Table */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+    .clean-table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+    }
+    .clean-table th {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-strong);
+      white-space: nowrap;
+    }
+    .clean-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    .clean-table tr:last-child td { border-bottom: none; }
+    .clean-table tr.row-attention td { background: var(--bg-pending); }
+    .clean-table tr.row-attention td:first-child { box-shadow: inset 3px 0 0 var(--color-accent); }
+    .clean-table tr.row-danger td { background: var(--status-danger-bg); }
+    .clean-table tr.row-danger td:first-child { box-shadow: inset 3px 0 0 var(--status-danger); }
+
+    .clean-table th.num-col,
+    .clean-table td.num-col {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .clean-table th.num-col {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+    }
+
+    /* ==========================================================================
+       5. Feature-specific Components
+       ========================================================================== */
+    /* Wizard Stepper */
+    .wizard-progress {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: var(--sp-5);
+    }
+    .wiz-step {
+      appearance: none;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.14s ease;
+    }
+    .wiz-step:hover { border-color: var(--color-primary); }
+    .wiz-step.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+    .wiz-step.done {
+      background: var(--bg-surface);
+      border-color: var(--status-ok-border);
+    }
+    .wiz-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 12.5px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .wiz-step.active .wiz-num {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
+    .wiz-step.done .wiz-num {
+      background: var(--status-ok-bg);
+      color: var(--status-ok);
+    }
+    .wiz-label strong {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 600;
+    }
+    .wizard-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--sp-5);
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--border-default);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Self-check Rows (Pending vs Done) */
+    .check-list { display: flex; flex-direction: column; gap: 8px; }
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: var(--text-sm);
+      border: 1px solid var(--border-default);
+      transition: all 0.14s ease;
+    }
+    .check-row input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--color-primary);
+      flex-shrink: 0;
+    }
+    .check-row.is-todo {
+      background: var(--bg-pending);
+      border-color: var(--color-accent-border);
+      border-left: 3px solid var(--color-accent);
+    }
+    .check-row.is-done {
+      background: var(--bg-surface);
+      border-color: var(--border-default);
+      border-left: 3px solid var(--status-ok);
+      color: var(--text-secondary);
+    }
+
+    /* Domain Upload Directory Grid */
+    .domain-portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+    .domain-portal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      transition: all 0.14s ease;
+    }
+    .domain-portal-btn:hover {
+      border-color: var(--color-primary);
+      background: var(--bg-subtle);
+    }
+    .domain-portal-btn.is-ext {
+      border-left: 3px solid var(--color-primary);
+    }
+
+    /* AI Audit Dropzone & Findings */
+    .ai-dropzone {
+      background: var(--bg-pending);
+      border: 1.5px dashed var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5) var(--sp-4);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: var(--sp-4);
+    }
+    .ai-dropzone:hover, .ai-dropzone.is-over {
+      background: #FBF1DF;
+      border-color: var(--color-primary);
+    }
+    .ai-dropzone.is-ready {
+      background: var(--status-ok-bg);
+      border: 1.5px solid var(--status-ok);
+    }
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--sp-4);
+    }
+    .metric-item span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .metric-item strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 2px;
+    }
+    .finding-list { display: flex; flex-direction: column; gap: 8px; }
+    .finding-row {
+      padding: 12px 16px;
+      border: 1px solid var(--border-default);
+      border-left: 3px solid var(--status-danger);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+    .finding-row.is-warn { border-left-color: var(--color-accent); }
+    .finding-row.is-pass { border-left-color: var(--status-ok); }
+    .finding-title {
+      font-weight: 700;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+    .finding-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+    .finding-suggest {
+      margin-top: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    /* Week Picker & 115-2 School-based Framework Matrix */
+    .week-picker {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .wk-chip {
+      appearance: none;
+      height: 34px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .wk-chip:hover { border-color: var(--color-primary); color: var(--text-primary); }
+    .wk-chip.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .fw-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+    .fw-table {
+      width: 100%;
+      min-width: 1010px;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .fw-table th {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      padding: 8px 8px;
+      border: 1px solid #2A4A66;
+      text-align: center;
+      font-weight: 600;
+    }
+    .fw-table th.fw-sub {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      border-color: var(--border-default);
+      font-weight: 700;
+    }
+    .fw-table td {
+      border: 1px solid var(--border-default);
+      padding: 7px 8px;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .fw-grade-cell {
+      background: var(--bg-subtle);
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      text-align: center;
+      width: 52px;
+      vertical-align: middle !important;
+    }
+    .fw-topic {
+      white-space: pre-line;
+      color: var(--text-secondary);
+    }
+    .fw-input {
+      width: 100%;
+      min-height: 58px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 6px 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      resize: vertical;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      transition: all 0.14s ease;
+    }
+    .fw-input.is-pending {
+      background: var(--bg-pending);
+      border-color: var(--color-accent-border);
+      box-shadow: inset 3px 0 0 var(--color-accent);
+    }
+    .fw-input.is-filled {
+      background: var(--bg-surface);
+      border-color: var(--border-default);
+      box-shadow: inset 3px 0 0 var(--status-ok);
+    }
+    .fw-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 2px rgba(27, 54, 77, 0.12);
+    }
+
+    /* Library Master-Detail */
+    .mail-layout {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: var(--sp-5);
+      min-height: 560px;
+      align-items: start;
+    }
+    .mail-list-pane {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .mail-search {
+      padding: var(--sp-4);
+      background: var(--bg-interactive);
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mail-items {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .mail-row {
+      width: 100%;
+      appearance: none;
+      border: none;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      padding: 12px 16px;
+      text-align: left;
+      cursor: pointer;
+      display: block;
+      transition: background-color 0.12s ease;
+    }
+    .mail-row:last-child { border-bottom: none; }
+    .mail-row:hover { background: var(--bg-subtle); }
+    .mail-row.active {
+      background: var(--color-primary-subtle);
+      box-shadow: inset 3px 0 0 var(--color-primary);
+    }
+    .mail-row.is-locked { opacity: 0.55; }
+    .mail-row strong {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* Kanban Board */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+    .kb-col {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .kb-col.is-over {
+      border-color: var(--color-primary);
+      background: var(--color-primary-subtle);
+    }
+    .kb-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2px 4px 6px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-default);
+      margin-bottom: 2px;
+    }
+    .kb-count {
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      color: var(--text-secondary);
+      padding: 1px 8px;
+      border-radius: var(--radius-sm);
+    }
+    .kb-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      cursor: grab;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.14s ease;
+    }
+    .kb-card:hover { border-color: var(--color-primary); }
+    .kb-card.is-school-ext { border-left: 3px solid var(--color-primary); }
+    .kb-title { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+    .kb-meta { font-size: var(--text-xs); color: var(--text-muted); }
+    .kb-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Mobile Chrome & Toast */
+    .mobile-role-strip, .mobile-bottom-nav { display: none; }
+
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      background: var(--text-primary);
+      color: #FFFFFF;
+      padding: 9px 18px;
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      box-shadow: var(--shadow-toast);
+      opacity: 0;
+      transform: translate(-50%, -10px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+      z-index: 95;
+      max-width: calc(100vw - 32px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ==========================================================================
+       6. Responsive Breakpoints (Compact <=1119px, Narrow <=920px, Mobile <=767px)
+       ========================================================================== */
+    @media (max-width: 1119px) {
+      .app-shell { grid-template-columns: 228px minmax(0, 1fr); }
+      .sidebar { padding: var(--sp-4) 12px; }
+      .nav-btn { font-size: 13px; padding: 8px 9px; white-space: nowrap; }
+      .workspace-content { padding: var(--sp-5); }
+      .split-5-7 { grid-template-columns: minmax(280px, 5fr) minmax(0, 7fr); gap: var(--sp-4); }
+      .mail-layout { grid-template-columns: 280px minmax(0, 1fr); gap: var(--sp-4); }
+      .kanban-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nm-grid { grid-template-columns: 1fr 1fr; }
+      .nm-grid > .nm-span-full { grid-column: 1 / -1; }
+      .admin-course-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 920px) {
+      .split-5-7, .mail-layout { grid-template-columns: 1fr; }
+      .wizard-progress { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 767px) {
+      .entry-portal { padding: var(--sp-4); align-items: flex-start; }
+      .entry-frame { grid-template-columns: 1fr; }
+      .entry-brand-col, .entry-form-col { padding: var(--sp-5); }
+      .role-option {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+        min-height: 54px;
+        padding: 10px 14px;
+      }
+      .role-scope-hint { padding-left: 26px; }
+      .input-ctrl, .field input[type="text"], .field input[type="number"] {
+        height: 44px;
+      }
+      .select-ctrl, .field select {
+        min-height: 44px;
+        height: auto;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .app-shell { display: block; padding-bottom: 72px; }
+      .sidebar { display: none; }
+
+      .mobile-role-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 9px var(--sp-4);
+        background: var(--bg-subtle);
+        border-bottom: 1px solid var(--border-default);
+      }
+      .mobile-role-strip input {
+        width: 96px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+      .mobile-role-strip select {
+        height: 32px;
+        padding: 0 6px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        font-size: 12.5px;
+        font-weight: 600;
+        max-width: 145px;
+      }
+
+      .topbar {
+        position: static;
+        padding: 12px var(--sp-4);
+        min-height: 54px;
+        gap: 8px;
+      }
+      .topbar-left h1 { font-size: 18px; }
+      .workspace-content { padding: var(--sp-4); }
+      .panel { padding: var(--sp-4); }
+      .grid-2, .grid-3, .nm-grid, .admin-course-grid, .kanban-board, .wizard-progress { grid-template-columns: 1fr; }
+      .week-picker { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 58px;
+        background: var(--bg-surface);
+        border-top: 1px solid var(--border-default);
+        z-index: 60;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .mob-nav-btn {
+        appearance: none;
+        border: none;
+        background: transparent;
+        flex: 1 0 68px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 4px 4px;
+        white-space: nowrap;
+      }
+      .mob-nav-btn.active {
+        color: var(--color-primary);
+        box-shadow: inset 0 2px 0 var(--color-primary);
+      }
+      .toast { top: 12px; max-width: calc(100vw - 24px); font-size: 12.5px; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 單一靜謐主入口（5:7 雙欄構圖） -->
+  <div class="entry-portal" id="entry-portal">
+    <div class="entry-frame">
+      <section class="entry-brand-col">
+        <div>
+          <div class="entry-kicker">新北市三峽區龍埔國民小學</div>
+          <h1 class="entry-brand-title">
+            <span id="entry-term-subtitle">115 學年度下學期</span><br />課程計畫工作站
+          </h1>
+        </div>
+
+        <div class="entry-mascot-wrap">
+          <div class="entry-mascot-box">
+            <img src="assets/喜閱龍第二代-研究ing(手繪風).png" width="76" height="76" decoding="sync" alt="龍埔國小喜閱龍官方圖樣" />
+          </div>
+          <div style="font-size:13.5px; color:rgba(255,255,255,0.86); line-height:1.6;">
+            填入姓名並選擇工作身分，<br />系統將直接開啟您本學期需執行的專屬表件。
+          </div>
+        </div>
+
+        <div class="entry-scope-meta">
+          <div id="entry-scope-chip">本學期開放：部定・英轉／資轉</div>
+          <div id="entry-locked-note" style="color:rgba(255,255,255,0.58);">本學期鎖定：一般校訂、特教</div>
+        </div>
+      </section>
+
+      <section class="entry-form-col">
+        <!-- 步驟 1：填入教師姓名 -->
+        <div class="zone-pending" id="entry-name-zone">
+          <div class="zone-header">
+            <span>步驟一｜教師姓名</span>
+            <span id="entry-name-tag">待填寫</span>
+          </div>
+          <input
+            class="input-ctrl"
+            id="entry-teacher-name"
+            type="text"
+            placeholder="請輸入您的姓名（全站表單自動帶入）"
+            autocomplete="name"
+          />
+        </div>
+
+        <!-- 步驟 2：選擇工作身分 -->
+        <div class="zone-select">
+          <div class="zone-header">
+            <span>步驟二｜選擇本次工作身分</span>
+            <span>單選</span>
+          </div>
+          <div class="role-list" id="entry-role-grid">
+            <button type="button" class="role-option selected" data-entry-role="teacher">
+              <span class="role-option-left">
+                <span class="role-radio"></span>
+                <span class="role-name">課程撰寫教師</span>
+              </span>
+              <span class="role-scope-hint">範本・AI 檢核・週次填報</span>
+            </button>
+
+            <button type="button" class="role-option" data-entry-role="grade">
+              <span class="role-option-left">
+                <span class="role-radio"></span>
+                <span class="role-name">學年主任</span>
+              </span>
+              <span class="role-scope-hint">表 5 議題檢核・表 6 校本匯出</span>
+            </button>
+
+            <button type="button" class="role-option" data-entry-role="domain">
+              <span class="role-option-left">
+                <span class="role-radio"></span>
+                <span class="role-name">領域初審教師</span>
+              </span>
+              <span class="role-scope-hint">各領域表 4 初審檢核表</span>
+            </button>
+
+            <button type="button" class="role-option" data-entry-role="reviewer">
+              <span class="role-option-left">
+                <span class="role-radio"></span>
+                <span class="role-name">課程計畫審查委員</span>
+              </span>
+              <span class="role-scope-hint">課發會表 4 複審與意見</span>
+            </button>
+
+            <button type="button" class="role-option" data-entry-role="admin">
+              <span class="role-option-left">
+                <span class="role-radio"></span>
+                <span class="role-name">課研組長／行政</span>
+              </span>
+              <span class="role-scope-hint">全校進度看板・學年度設定</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 全頁唯一實心主行動按鈕 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding-top:4px; flex-wrap:wrap;">
+          <a href="https://drive.google.com/drive/folders/1Qd4d-J7zJPTllVovENH5iSWzkWy84OMR?usp=sharing" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+            <span>雲端總目錄</span>
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <button type="button" class="btn btn-primary btn-lg" id="btn-enter-workspace">
+            <span>進入專屬工作區</span>
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 手機版頂部身分列 -->
+  <div class="mobile-role-strip">
+    <div style="display:flex; align-items:center; gap:6px;">
+      <button type="button" class="btn btn-secondary btn-sm" id="mobile-back-entry" style="padding:0 8px;">
+        <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>入口</span>
+      </button>
+      <input id="mobile-teacher-name" type="text" placeholder="教師姓名" aria-label="手機版撰寫教師姓名" />
+    </div>
+    <span class="tag tag-primary" id="mobile-role-display">課程撰寫教師</span>
+  </div>
+
+  <!-- 內頁常駐骨架（亞麻暖灰側欄 ＋ 留白秩序主內容區） -->
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-avatar">
+            <img src="assets/喜閱龍第二代-研究ing(手繪風).png" width="32" height="32" decoding="sync" alt="龍埔國小喜閱龍官方圖樣" />
+          </div>
+          <div class="brand-text">
+            <strong>龍埔課程計畫工作站</strong>
+            <span id="sidebar-term-sub">115 學年度下學期</span>
+          </div>
+        </div>
+
+        <div class="identity-card">
+          <div class="identity-row">
+            <span>目前登入教師</span>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-back-entry" style="height:22px; padding:0 6px;">切換入口</button>
+          </div>
+          <input class="identity-input" id="sidebar-teacher-name" type="text" placeholder="請輸入教師姓名" aria-label="撰寫教師姓名" />
+          <div class="identity-row" style="margin-top:2px;">
+            <span>工作身分</span>
+          </div>
+          <div class="identity-role-static" id="sidebar-role-display">課程撰寫教師</div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="主功能選單">
+          <div class="nav-section-title">專屬執行項目</div>
+          <button class="nav-btn active" data-view="wizard">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span>撰寫步驟精靈</span>
+          </button>
+          <button class="nav-btn" data-view="ai-audit">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            <span>AI 檢核助理員</span>
+          </button>
+          <button class="nav-btn" data-view="weekly">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>法定議題與校本週次</span>
+          </button>
+          <button class="nav-btn" data-view="library">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <span>歷年與廠商資料庫</span>
+          </button>
+          <button class="nav-btn" data-view="review-checklist">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+            <span>審查檢核表</span>
+          </button>
+          <button class="nav-btn" data-view="kanban">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            <span>全校進度看板</span>
+          </button>
+          <button class="nav-btn" data-view="admin-settings">
+            <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>學年度與課程設定</span>
+          </button>
+
+          <div id="sidebar-lock-wrap">
+            <div class="nav-section-title" id="sidebar-lock-title" style="margin-top:8px;">115 下鎖定項目</div>
+            <button class="nav-btn is-locked" id="sidebar-lock-general" disabled title="本學期免撰寫一般校訂課程">
+              <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>一般校訂課程</span>
+            </button>
+            <button class="nav-btn is-locked" id="sidebar-lock-sped" disabled title="本學期免撰寫特殊教育課程">
+              <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>特殊教育課程</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <div class="sidebar-foot">
+        <a class="btn btn-secondary btn-sm" style="width:100%; justify-content:space-between;" href="https://drive.google.com/drive/folders/1Qd4d-J7zJPTllVovENH5iSWzkWy84OMR?usp=sharing" target="_blank" rel="noopener">
+          <span id="sidebar-cloud-label">115 雲端總目錄</span>
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <div>教務處課研組・分機 813</div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="topbar-title">撰寫步驟精靈</h1>
+        </div>
+        <div class="topbar-right">
+          <span class="tag tag-ok" id="topbar-scope-chip">開放：部定・英轉／資轉</span>
+          <a class="btn btn-secondary btn-sm" href="https://drive.google.com/drive/folders/1UMOgyi2ztn635eHFjgy0UFzKl4idvfwg?usp=sharing" target="_blank" rel="noopener">
+            <span>1-2 領域上傳夾</span>
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <main class="workspace-content" id="workspace-root"></main>
+    </div>
+  </div>
+
+  <!-- 手機版底部導覽列 -->
+  <nav class="mobile-bottom-nav" aria-label="手機底部導覽列">
+    <button class="mob-nav-btn active" data-view="wizard">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>步驟精靈</span>
+    </button>
+    <button class="mob-nav-btn" data-view="ai-audit">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      <span>AI 檢核</span>
+    </button>
+    <button class="mob-nav-btn" data-view="weekly">
+      <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>議題週次</span>
+    </button>
+    <button class="mob-nav-btn" data-view="library">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>資料庫</span>
+    </button>
+    <button class="mob-nav-btn" data-view="review-checklist">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      <span>審查表</span>
+    </button>
+    <button class="mob-nav-btn" data-view="kanban">
+      <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+      <span>進度看板</span>
+    </button>
+    <button class="mob-nav-btn" data-view="admin-settings">
+      <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>學年設定</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="browser-auditor.js"></script>
+  <script src="framework-115-2.js"></script>
+  <script src="library-catalog.js"></script>
+  <script src="review-checklists-data.js"></script>
+  <script src="workspace-app.js"></script>
+</body>
+</html>
